@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Histórico de Reuniões - Google Meet Caption Saver</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 20px;
+        color: #202124;
+        background-color: #f5f5f5;
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+      h1 {
+        color: #1a73e8;
+        margin-top: 0;
+        margin-bottom: 8px;
+      }
+      p {
+        color: #5f6368;
+        margin-top: 0;
+        margin-bottom: 20px;
+      }
+      .meetings-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      .meetings-table th {
+        text-align: left;
+        padding: 12px;
+        background-color: #f1f3f4;
+        color: #202124;
+        font-weight: 500;
+        border-bottom: 1px solid #dadce0;
+      }
+      .meetings-table td {
+        padding: 12px;
+        border-bottom: 1px solid #dadce0;
+        vertical-align: middle;
+      }
+      .meetings-table tr:last-child td {
+        border-bottom: none;
+      }
+      .empty-state {
+        text-align: center;
+        padding: 32px;
+        color: #5f6368;
+      }
+      .download-button {
+        background-color: #1a73e8;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 6px 12px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .download-button:hover {
+        background-color: #1765cc;
+      }
+      .meeting-date {
+        color: #202124;
+        font-weight: 500;
+      }
+      .meeting-time {
+        color: #5f6368;
+        font-size: 0.9rem;
+      }
+      .meeting-duration {
+        font-size: 0.9rem;
+        color: #5f6368;
+      }
+      .back-link {
+        display: inline-block;
+        margin-top: 16px;
+        color: #1a73e8;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .back-link:hover {
+        text-decoration: underline;
+      }
+      .icon {
+        vertical-align: middle;
+        margin-right: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Histórico de Reuniões</h1>
+      <p>Suas 10 reuniões mais recentes com legendas capturadas.</p>
+
+      <table class="meetings-table" id="meetings-table">
+        <thead>
+          <tr>
+            <th>Reunião</th>
+            <th>Data e Duração</th>
+            <th>Legendas</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="meetings-list">
+          <!-- O JavaScript irá preencher esta seção -->
+        </tbody>
+      </table>
+
+      <a href="#" class="back-link" id="back-link">← Voltar</a>
+    </div>
+
+    <script src="meetings.js"></script>
+  </body>
+</html>

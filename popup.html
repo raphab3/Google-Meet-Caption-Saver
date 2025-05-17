@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Google Meet Caption Saver</title>
+    <style>
+      body {
+        width: 360px;
+        padding: 16px;
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        color: #202124;
+      }
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+      .header-content {
+        flex: 1;
+      }
+      h1 {
+        color: #1a73e8;
+        margin: 0;
+        font-size: 1.5rem;
+      }
+      .description {
+        color: #5f6368;
+        margin: 4px 0 0 0;
+        font-size: 0.9rem;
+      }
+      .logo {
+        width: 40px;
+        height: 40px;
+        margin-left: 12px;
+        border-radius: 50%;
+      }
+      .mode-selector {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 16px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      .radio-item {
+        display: flex;
+        margin-bottom: 12px;
+        align-items: flex-start;
+      }
+      input[type="radio"] {
+        margin-top: 3px;
+        accent-color: #1a73e8;
+        cursor: pointer;
+      }
+      label {
+        margin-left: 10px;
+        cursor: pointer;
+      }
+      .mode-title {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 4px;
+      }
+      .mode-description {
+        color: #5f6368;
+        font-size: 0.85rem;
+      }
+      .divider {
+        border: none;
+        border-top: 1px solid #dadce0;
+        margin: 12px 0;
+      }
+      .caption-status {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 16px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      .status-text {
+        font-size: 0.9rem;
+        margin: 0 0 12px 0;
+      }
+      .status-indicator {
+        display: flex;
+        align-items: center;
+      }
+      .indicator-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+      .active {
+        background-color: #34a853;
+      }
+      .inactive {
+        background-color: #ea4335;
+      }
+      .button-container {
+        display: flex;
+        gap: 8px;
+      }
+      button {
+        flex: 1;
+        padding: 10px;
+        background-color: #1a73e8;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: background-color 0.2s;
+      }
+      button:hover {
+        background-color: #1765cc;
+      }
+      button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+      .secondary-button {
+        background-color: #f8f9fa;
+        color: #1a73e8;
+        border: 1px solid #dadce0;
+      }
+      .secondary-button:hover {
+        background-color: #f1f3f4;
+      }
+      .meetings-link {
+        display: block;
+        margin: 12px 0;
+        color: #1a73e8;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.9rem;
+        text-align: center;
+      }
+      .meetings-link:hover {
+        text-decoration: underline;
+      }
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        color: #5f6368;
+        margin-top: 16px;
+      }
+      .footer a {
+        color: #1a73e8;
+        text-decoration: none;
+      }
+      .footer a:hover {
+        text-decoration: underline;
+      }
+      .footer-separator {
+        margin: 0 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="header-content">
+        <h1>Google Meet Caption Saver</h1>
+        <p class="description">Capturar e salvar legendas do Google Meet</p>
+      </div>
+      <img class="logo" src="images/icon128.png" alt="Logo" />
+    </div>
+
+    <div class="mode-selector">
+      <div class="radio-item">
+        <input type="radio" name="mode" id="auto-mode" />
+        <label for="auto-mode">
+          <span class="mode-title">Modo Automático</span>
+          <span class="mode-description"
+            >Capturar legendas automaticamente em todas as reuniões</span
+          >
+        </label>
+      </div>
+      <div class="radio-item">
+        <input type="radio" name="mode" id="manual-mode" />
+        <label for="manual-mode">
+          <span class="mode-title">Modo Manual</span>
+          <span class="mode-description"
+            >Ativar a captura de legendas conforme necessário</span
+          >
+        </label>
+      </div>
+      <hr class="divider" />
+      <p class="status-text">
+        Em ambos os modos, a transcrição é salva automaticamente ao final de
+        cada reunião.
+      </p>
+    </div>
+
+    <div class="caption-status">
+      <div class="status-indicator">
+        <div class="indicator-dot inactive" id="status-dot"></div>
+        <p class="status-text" id="status-text">Aguardando reunião...</p>
+      </div>
+      <div class="button-container">
+        <button id="start-button">Iniciar Captura</button>
+        <button id="stop-button" disabled>Parar e Salvar</button>
+      </div>
+    </div>
+
+    <a href="meetings.html" target="_blank" class="meetings-link"
+      >Ver reuniões anteriores →</a
+    >
+
+    <div
+      id="error-message"
+      style="
+        color: #ea4335;
+        padding: 10px;
+        margin-top: 10px;
+        background-color: #fde293;
+        border-radius: 4px;
+        display: none;
+      "
+    >
+      <p id="error-text"></p>
+    </div>
+
+    <div class="footer">
+      <div>
+        <a href="privacy.html" target="_blank">Privacidade</a>
+        <span class="footer-separator">•</span>
+        <a href="developer.html" target="_blank">Sobre</a>
+      </div>
+      <div>v1.0.0</div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

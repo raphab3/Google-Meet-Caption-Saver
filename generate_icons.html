@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gerador de Ícones</title>
+</head>
+<body>
+  <h1>Gerador de Ícones para a Extensão</h1>
+  <p>Esta página gera ícones simples para a extensão. Clique nos links abaixo para baixar os ícones:</p>
+  
+  <div>
+    <canvas id="icon16" width="16" height="16"></canvas>
+    <a id="download16" href="#" download="icon16.png">Baixar ícone 16x16</a>
+  </div>
+  <br>
+  <div>
+    <canvas id="icon48" width="48" height="48"></canvas>
+    <a id="download48" href="#" download="icon48.png">Baixar ícone 48x48</a>
+  </div>
+  <br>
+  <div>
+    <canvas id="icon128" width="128" height="128"></canvas>
+    <a id="download128" href="#" download="icon128.png">Baixar ícone 128x128</a>
+  </div>
+  
+  <script>
+    function drawIcon(canvas, size) {
+      const ctx = canvas.getContext('2d');
+      
+      // Fundo
+      ctx.fillStyle = '#1a73e8';
+      ctx.fillRect(0, 0, size, size);
+      
+      // Borda
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth = Math.max(1, size / 16);
+      ctx.strokeRect(size * 0.1, size * 0.1, size * 0.8, size * 0.8);
+      
+      // Texto "CC" (Closed Caption)
+      ctx.fillStyle = 'white';
+      ctx.font = `bold ${size * 0.5}px Arial`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('CC', size / 2, size / 2);
+      
+      // Atualiza o link de download
+      const downloadLink = document.getElementById(`download${size}`);
+      downloadLink.href = canvas.toDataURL('image/png');
+    }
+    
+    // Desenha os ícones
+    drawIcon(document.getElementById('icon16'), 16);
+    drawIcon(document.getElementById('icon48'), 48);
+    drawIcon(document.getElementById('icon128'), 128);
+  </script>
+</body>
+</html>
